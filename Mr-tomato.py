@@ -1,0 +1,161 @@
+import random,time
+class Items:
+  def __init__ (self,price,amount):
+    self.price = price
+    self.amount = amount
+Exit_Condition = False
+Buying_Input =""
+User_Input_Starting_Game =""
+BreakTime = 15
+Stated_Games = 0
+i = 0
+Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Ice","Vanilla Cream","Cheese","Rice","Soup","Potato","Fried egg","Orange","Cream"]
+Money = 0
+anger = 0
+Scissors = Items(700,0)
+Candy = Items(1000,0)
+Knife = Items(1500,0)
+Want_To_Eat = Food_List[random.randint(0,13)]
+Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
+
+#start
+
+print("Welcome")
+while True:
+  time.sleep(0.5)
+  print("1.Shop")
+  print("2.Game")
+  print("3.Credit")
+  print(f"Money: {Money}")
+  time.sleep(0.5)
+  while True:
+    User_Input_Starting_Game = input("Where would you visit? ").strip().lower()
+    if User_Input_Starting_Game != "1" and User_Input_Starting_Game != "2" and User_Input_Starting_Game != "game" and User_Input_Starting_Game != "shop" and User_Input_Starting_Game == "3" and User_Input_Starting_Game == "credit":
+      print(User_Input_Starting_Game)
+      print("ENTER CORRECT NUMBER OF PLACE NAME")
+      continue
+    else:
+      break    
+  if User_Input_Starting_Game == "3" or User_Input_Starting_Game == "credit":
+      time.sleep(1)
+      print("MADE BY NAZON")
+      print("(ft.mimo)")
+      print("")
+#Game
+  if (User_Input_Starting_Game == "2" or User_Input_Starting_Game == "game") and Stated_Games == 0:
+    print("--------In Game--------")
+    time.sleep(0.8)
+    print("Hi")
+    time.sleep(0.9)
+    print("I'm MR.tomato")
+    time.sleep(1)
+    print("Having no hands,I hired you to feed me")
+    time.sleep(2)
+    print("Be ready")
+    time.sleep(0.5)
+    Stated_Games += 1
+  elif User_Input_Starting_Game == "2" and Stated_Games != 0:
+    print("Welcome Back.")
+    print("")
+    Stated_Games += 1
+  #Playing Process  
+  while User_Input_Starting_Game == "2":
+    while True:
+      if len(Showing) < 3:
+        Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
+      else:
+       break
+    Showing_List = list(Showing)
+    time.sleep(0.5)
+    print(f"I'd like to eat {Want_To_Eat}")
+    print(f"ANGER: {anger}")
+    print(f"Left Food: {BreakTime}")
+    for i in range(1,4):
+      print(f"{i}.{Showing_List[i-1]}")
+    try:
+      Giving = input("Enter Number or 'item': ").strip().lower()
+      if Giving == "item":
+        print(f"Scissors: {Scissors.amount}")
+        print(f"Candy: {Candy.amount}")
+        print(f"???: {Knife.amount}")###########HERE!!!!!!##############
+      Int_Input = int(Giving)
+      if Int_Input > 3:
+        print("Select numbers between 1~3")
+        print("")
+        continue
+    except ValueError:
+      print("Please enter 'Number'")
+      continue
+  
+    if Showing_List[Int_Input-1] == Want_To_Eat:
+      time.sleep(1)
+      Money += 75
+      BreakTime -= 1
+    else:
+      time.sleep(1)
+      print("I'd not asked This")
+      anger += 1
+      BreakTime -= 1
+    if anger >= 10:
+      print("YOU ARE THE WORST PERSON I HAVE EVER SEEN")
+      time.sleep(1)
+      break
+#BREAK TIME
+      
+    if BreakTime == 0 or BreakTime < 0:
+      time.sleep(0.5)
+      print("Ok,I'm full for now")
+      time.sleep(1)
+      print("Come back later if I become hungry")
+      time.sleep(2)
+      print("See you later")
+      break
+    Want_To_Eat = Food_List[random.randint(0,13)]
+    Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
+    print("")
+    
+#SHOPPING
+  
+  while User_Input_Starting_Game == "1" or User_Input_Starting_Game == "shop":
+    if Exit_Condition == False:
+      print("--------SHOP--------")
+      print(f"Scissors: {Scissors.price}, you have {Scissors.amount} scissor(s)")
+      print(f"Candy: {Candy.price}, you have {Candy.amount} candy(s)")
+      print("1.Scissors")
+      print("2.Candy")
+      print("3.???")
+      print("4.exit")
+      time.sleep(0.7)
+      Buying_Input =input("what would you buy? ")
+      if Buying_Input == "1":
+        if Money >= Scissors.price:
+          Money -= Scissors.price
+          Scissors.amount += 1
+          print("Purchased Scissors")
+          print("")
+        else:
+          print("You don't have enough money")
+          print("")
+      elif Buying_Input == "2":
+        if Money >= Candy.price:
+          Money -= Candy.price
+          Candy.amount += 1
+          print("Purchased Candy")
+          print("")
+        else:
+          print("You don't have enough money")
+          print("")
+      elif Buying_Input == "3":
+        if Money >= Knife.price:
+          Money -= Knife.price
+          Knife.amount += 1
+          print("Purchased 'Knife'")
+          print("")
+        else:
+          print("You don't have enough money")
+          print("")
+      if Buying_Input == "4":
+          Exit_Condition = True
+    elif Exit_Condition == True:
+      Exit_Condition == False
+      break
