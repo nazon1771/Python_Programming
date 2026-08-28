@@ -17,7 +17,7 @@ Candy = Items(1000,0)
 Knife = Items(1500,0)
 Want_To_Eat = Food_List[random.randint(0,13)]
 Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
-
+Int_Input = 0
 #start
 
 print("Welcome")
@@ -51,7 +51,9 @@ while True:
       time.sleep(0.5)
       print("You can earn money when you fed correct food")
       time.sleep(0.5)
-      print("With money, you can buy items,which can ease Game Play")    
+      print("With money, you can buy items,which can ease Game Play")   
+      time.sleep(0.5)
+      print("Enter 'item' to use items in game") 
 #Game
   if (User_Input_Starting_Game == "2" or User_Input_Starting_Game == "game") and Stated_Games == 0:
     print("--------In Game--------")
@@ -89,7 +91,11 @@ while True:
         print(f"Scissors: {Scissors.amount}")
         print(f"Candy: {Candy.amount}")
         print(f"???: {Knife.amount}")#####HERE!!!!!!#####
-      Int_Input = int(Giving)
+        Item_Using_Input = input("Which item would you use?").strip().lower()
+        if Item_Using_Input != "scissors" and Item_Using_Input != "candy" and Item_Using_Input != "???":
+          break
+      else:  
+        Int_Input = int(Giving)
       if Int_Input > 3:
         print("Select numbers between 1~3")
         print("")
@@ -109,6 +115,8 @@ while True:
       BreakTime -= 1
     if anger >= 10:
       print("YOU ARE THE WORST PERSON I HAVE EVER SEEN")
+      time.sleep(1)
+      print("GET OUT OF MY SIGHT,RIGHT NOW")
       time.sleep(1)
       break
 #BREAK TIME
@@ -132,6 +140,7 @@ while True:
       print("--------SHOP--------")
       print(f"Scissors: {Scissors.price}, you have {Scissors.amount} scissor(s)")
       print(f"Candy: {Candy.price}, you have {Candy.amount} candy(s)")
+      print(f"???: {Knife.price}, you have {Knife.amount} amount of something")
       print("1.Scissors")
       print("2.Candy")
       print("3.???")
