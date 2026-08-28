@@ -77,7 +77,7 @@ while True:
       if Giving == "item":
         print(f"Scissors: {Scissors.amount}")
         print(f"Candy: {Candy.amount}")
-        print(f"???: {Knife.amount}")###########HERE!!!!!!##############
+        print(f"???: {Knife.amount}")#####HERE!!!!!!#####
       Int_Input = int(Giving)
       if Int_Input > 3:
         print("Select numbers between 1~3")
