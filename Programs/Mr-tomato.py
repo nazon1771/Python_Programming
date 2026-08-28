@@ -135,6 +135,8 @@ while True:
     Want_To_Eat = Food_List[random.randint(0,13)]
     Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
     BreakTime = 15 + Stated_Games * 5
+    if BreakTime > 40:
+      BreakTime = 40
     print("")
     
 #SHOPPING
