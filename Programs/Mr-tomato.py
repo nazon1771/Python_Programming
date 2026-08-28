@@ -1,8 +1,9 @@
 import random,time
 class Items:
-  def __init__ (self,price,amount):
+  def __init__ (self,price,amount,name):
     self.price = price
     self.amount = amount
+    self.name = name
 Exit_Condition = False
 Buying_Input =""
 User_Input_Starting_Game =""
@@ -12,12 +13,14 @@ i = 0
 Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Ice","Vanilla Cream","Cheese","Rice","Soup","Potato","Fried egg","Orange","Cream"]
 Money = 0
 anger = 0
-Scissors = Items(700,0)
-Candy = Items(1000,0)
-Knife = Items(1500,0)
+Scissors = Items(700,0,"scissors")
+Candy = Items(1000,0,"candy")
+Knife = Items(1500,0,"knife")
 Want_To_Eat = Food_List[random.randint(0,13)]
 Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
 Int_Input = 0
+Event_Sack = 0
+Event_Starting_Rate = 0
 #start
 
 print("Welcome")
@@ -96,6 +99,11 @@ while True:
           print("No Item Used")
           time.sleep(0.5)
           continue
+        if Item_Using_Input == "scissors" and Scissors.amount > 0 and Stated_Games > 0 and Event_Sack == 1:
+          print("Used 'scissors'")
+          Scissors.amount -= 1
+          #FROM NOW START FIXING
+          
       else:  
         Int_Input = int(Giving)
       if Int_Input > 3:
@@ -110,9 +118,16 @@ while True:
       time.sleep(1)
       Money += 75
       BreakTime -= 1
+      Event_Sack = 0
+      if Stated_Games > 0:
+        Event_Starting_Rate = random.randint(0,100)
+        if Event_Starting_Rate > 80:
+          Event_Sack = 1
+        
     else:
       time.sleep(1)
       print("I'd not asked This")
+      Event_Sack = 0
       anger += 1
       BreakTime -= 1
       #GAME OVER
