@@ -33,7 +33,7 @@ while True:
   print(f"Money: {Money}")
   time.sleep(0.5)
   while True:
-    #User Menu input
+#User Menu input
     User_Input_Starting_Game = input("Where would you go? ").strip().lower()
     if User_Input_Starting_Game != "1" and User_Input_Starting_Game != "2" and User_Input_Starting_Game != "game" and User_Input_Starting_Game != "shop" and User_Input_Starting_Game == "3" and User_Input_Starting_Game == "credit":
       print(User_Input_Starting_Game)
@@ -41,13 +41,13 @@ while True:
       continue
     else:
       break    
-  #Credit
+#Credit
   if User_Input_Starting_Game == "3" or User_Input_Starting_Game == "credit":
       time.sleep(1)
       print("MADE BY NAZON")
       print("(ft.mimo)")
       print("")
-  #How to play
+#How to play
   if User_Input_Starting_Game == "4" or User_Input_Starting_Game == "how to play":
       time.sleep(1)
       print("Enter food number to feed Mr.tomato")
@@ -74,7 +74,7 @@ while True:
     print("Welcome Back.")
     print("")
     Stated_Games += 1
-  #Playing Process  
+#Playing Process  
   while User_Input_Starting_Game == "2":
     while True:
       if len(Showing) < 3:
@@ -102,7 +102,7 @@ while True:
         if Item_Using_Input == "scissors" and Scissors.amount > 0 and Stated_Games > 0 and Event_Sack == 1:
           print("Used 'scissors'")
           Scissors.amount -= 1
-          #FROM NOW START FIXING
+#FROM NOW START FIXING
           
       else:  
         Int_Input = int(Giving)
@@ -130,7 +130,7 @@ while True:
       Event_Sack = 0
       anger += 1
       BreakTime -= 1
-      #GAME OVER
+#GAME OVER
     if anger >= 10:
       print("YOU ARE THE WORST PERSON I HAVE EVER SEEN")
       time.sleep(1)
