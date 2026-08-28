@@ -13,9 +13,9 @@ i = 0
 Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Ice","Vanilla Cream","Cheese","Rice","Soup","Potato","Fried egg","Orange","Cream"]
 Money = 0
 anger = 0
-Scissors = Items(700,0,"scissors")
-Candy = Items(1000,0,"candy")
-Knife = Items(1500,0,"knife")
+Scissors = Items(300,0,"scissors")
+Candy = Items(800,0,"candy")
+Knife = Items(2000,0,"knife")
 Want_To_Eat = Food_List[random.randint(0,13)]
 Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
 Int_Input = 0
@@ -23,7 +23,7 @@ Event_Sack = 0
 Event_Starting_Rate = 0
 #start
 
-print("Welcome")
+print("Welcome to the Kitchen")
 while True:
   time.sleep(0.5)
   print("1.Shop")
@@ -89,7 +89,7 @@ while True:
     for i in range(1,4):
       print(f"{i}.{Showing_List[i-1]}")
     try:
-      Giving = input("Enter Number or 'item': ").strip().lower()
+      Giving = input("Enter Number or 'item'(To use items): ").strip().lower()
       if Giving == "item":
         print(f"Scissors: {Scissors.amount}")
         print(f"Candy: {Candy.amount}")
@@ -102,6 +102,7 @@ while True:
         if Item_Using_Input == "scissors" and Scissors.amount > 0 and Stated_Games > 0 and Event_Sack == 1:
           print("Used 'scissors'")
           Scissors.amount -= 1
+          continue
 #FROM NOW START FIXING
           
       else:  
@@ -119,10 +120,11 @@ while True:
       Money += 75
       BreakTime -= 1
       Event_Sack = 0
-      if Stated_Games > 0:
+      if Stated_Games > 1:
         Event_Starting_Rate = random.randint(0,100)
         if Event_Starting_Rate > 80:
           Event_Sack = 1
+          print("event occured!")
         
     else:
       time.sleep(1)
@@ -146,12 +148,13 @@ while True:
       print("Come back later if I become hungry")
       time.sleep(2)
       print("See you later")
+      BreakTime = 15 + Stated_Games * 5
+      if BreakTime > 40:
+        BreakTime = 40
+
       break
     Want_To_Eat = Food_List[random.randint(0,13)]
     Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
-    BreakTime = 15 + Stated_Games * 5
-    if BreakTime > 40:
-      BreakTime = 40
     print("")
     
 #SHOPPING
@@ -166,13 +169,14 @@ while True:
       print("2.Candy")
       print("3.???")
       print("4.exit")
+      print(f"Money: {Money}")
       time.sleep(0.7)
       Buying_Input =input("what would you buy? ")
       if Buying_Input == "1":
         if Money >= Scissors.price:
           Money -= Scissors.price
           Scissors.amount += 1
-          print("Purchased Scissors")
+          print("Purchased Scissors!")
           print("")
         else:
           print("You don't have enough money")
@@ -181,7 +185,7 @@ while True:
         if Money >= Candy.price:
           Money -= Candy.price
           Candy.amount += 1
-          print("Purchased Candy")
+          print("Purchased Candy!")
           print("")
         else:
           print("You don't have enough money")
@@ -190,7 +194,7 @@ while True:
         if Money >= Knife.price:
           Money -= Knife.price
           Knife.amount += 1
-          print("Purchased 'Knife'")
+          print("Purchased 'Knife'!")
           print("")
         else:
           print("You don't have enough money")
