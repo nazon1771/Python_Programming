@@ -94,6 +94,7 @@ while True:
         Item_Using_Input = input("Which item would you use?").strip().lower()
         if Item_Using_Input != "scissors" and Item_Using_Input != "candy" and Item_Using_Input != "???":
           print("No Item Used")
+          time.sleep(0.5)
           continue
       else:  
         Int_Input = int(Giving)
@@ -114,6 +115,7 @@ while True:
       print("I'd not asked This")
       anger += 1
       BreakTime -= 1
+      #GAME OVER
     if anger >= 10:
       print("YOU ARE THE WORST PERSON I HAVE EVER SEEN")
       time.sleep(1)
@@ -132,6 +134,7 @@ while True:
       break
     Want_To_Eat = Food_List[random.randint(0,13)]
     Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
+    BreakTime = 15 + Stated_Games * 5
     print("")
     
 #SHOPPING
