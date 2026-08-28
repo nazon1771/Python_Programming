@@ -93,7 +93,8 @@ while True:
         print(f"???: {Knife.amount}")#####HERE!!!!!!#####
         Item_Using_Input = input("Which item would you use?").strip().lower()
         if Item_Using_Input != "scissors" and Item_Using_Input != "candy" and Item_Using_Input != "???":
-          break
+          print("No Item Used")
+          continue
       else:  
         Int_Input = int(Giving)
       if Int_Input > 3:
