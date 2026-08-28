@@ -26,21 +26,32 @@ while True:
   print("1.Shop")
   print("2.Game")
   print("3.Credit")
+  print("4.How to play")
   print(f"Money: {Money}")
   time.sleep(0.5)
   while True:
-    User_Input_Starting_Game = input("Where would you visit? ").strip().lower()
+    #User Menu input
+    User_Input_Starting_Game = input("Where would you go? ").strip().lower()
     if User_Input_Starting_Game != "1" and User_Input_Starting_Game != "2" and User_Input_Starting_Game != "game" and User_Input_Starting_Game != "shop" and User_Input_Starting_Game == "3" and User_Input_Starting_Game == "credit":
       print(User_Input_Starting_Game)
       print("ENTER CORRECT NUMBER OF PLACE NAME")
       continue
     else:
       break    
+  #Credit
   if User_Input_Starting_Game == "3" or User_Input_Starting_Game == "credit":
       time.sleep(1)
       print("MADE BY NAZON")
       print("(ft.mimo)")
       print("")
+  #How to play
+  if User_Input_Starting_Game == "4" or User_Input_Starting_Game == "how to play":
+      time.sleep(1)
+      print("Enter food number to feed Mr.tomato")
+      time.sleep(0.5)
+      print("You can earn money when you fed correct food")
+      time.sleep(0.5)
+      print("With money, you can buy items,which can ease Game Play")    
 #Game
   if (User_Input_Starting_Game == "2" or User_Input_Starting_Game == "game") and Stated_Games == 0:
     print("--------In Game--------")
