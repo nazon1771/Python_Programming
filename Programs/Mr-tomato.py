@@ -22,7 +22,6 @@ Int_Input = 0
 Event_Sack = 0
 Event_Starting_Rate = 0
 #start
-
 print("Welcome to the Kitchen")
 while True:
   time.sleep(0.5)
@@ -103,8 +102,7 @@ while True:
           print("Used 'scissors'")
           Scissors.amount -= 1
           continue
-#FROM NOW START FIXING
-          
+#FROM NOW START FIXING:scissor event and rest of items event
       else:  
         Int_Input = int(Giving)
       if Int_Input > 3:
@@ -113,8 +111,7 @@ while True:
         continue
     except ValueError:
       print("Please enter 'Number'")
-      continue
-  
+      continue  
     if Showing_List[Int_Input-1] == Want_To_Eat:
       time.sleep(1)
       Money += 75
@@ -125,7 +122,6 @@ while True:
         if Event_Starting_Rate > 80:
           Event_Sack = 1
           print("event occured!")
-        
     else:
       time.sleep(1)
       print("I'd not asked This")
@@ -140,7 +136,6 @@ while True:
       time.sleep(1)
       break
 #BREAK TIME
-      
     if BreakTime == 0 or BreakTime < 0:
       time.sleep(0.5)
       print("Ok,I'm full for now")
@@ -151,14 +146,11 @@ while True:
       BreakTime = 15 + Stated_Games * 5
       if BreakTime > 40:
         BreakTime = 40
-
       break
     Want_To_Eat = Food_List[random.randint(0,13)]
     Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
     print("")
-    
 #SHOPPING
-  
   while User_Input_Starting_Game == "1" or User_Input_Starting_Game == "shop":
     if Exit_Condition == False:
       print("--------SHOP--------")
