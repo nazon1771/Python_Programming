@@ -21,6 +21,8 @@ Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_
 Int_Input = 0
 Event_Sack = 0
 Event_Starting_Rate = 0
+Hiding1 = 0 #is used to print "(???)"
+Hiding2 = 0
 #start
 print("Welcome to the Kitchen")
 while True:
@@ -72,6 +74,7 @@ while True:
   elif User_Input_Starting_Game == "2" and Stated_Games != 0:
     print("Welcome Back.")
     print("")
+    time.sleep(0.5)
     Stated_Games += 1
 #Playing Process  
   while User_Input_Starting_Game == "2":
@@ -81,10 +84,18 @@ while True:
       else:
        break
     Showing_List = list(Showing)
+    Real_Having = Showing_List.copy()
     time.sleep(0.5)
     print(f"I'd like to eat {Want_To_Eat}")
     print(f"ANGER: {anger}")
     print(f"Left Food: {BreakTime}")
+    if Stated_Games > 1 and Event_Sack == 1:#here i fixing
+      Hiding1 = random.randint(0,2)
+      Hiding2 = random.randint(0,2)
+      while Hiding1 == Hiding2:
+        Hiding2 = random.randint(0,2)
+      Showing_List[Hiding1] = "(???)"
+      Showing_List[Hiding2] = "(???)"
     for i in range(1,4):
       print(f"{i}.{Showing_List[i-1]}")
     try:
@@ -102,7 +113,7 @@ while True:
           print("Used 'scissors'")
           Scissors.amount -= 1
           continue
-#FROM NOW START FIXING:scissor event and rest of items event
+#FROM HERE START FIXING:scissor event and rest of items event
       else:  
         Int_Input = int(Giving)
       if Int_Input > 3:
@@ -112,22 +123,22 @@ while True:
     except ValueError:
       print("Please enter 'Number'")
       continue  
-    if Showing_List[Int_Input-1] == Want_To_Eat:
+    if Real_Having[Int_Input-1] == Want_To_Eat:
       time.sleep(1)
       Money += 75
       BreakTime -= 1
       Event_Sack = 0
       if Stated_Games > 1:
         Event_Starting_Rate = random.randint(0,100)
-        if Event_Starting_Rate > 80:
+        if Event_Starting_Rate > 75:
           Event_Sack = 1
-          print("event occured!")
     else:
       time.sleep(1)
       print("I'd not asked This")
       Event_Sack = 0
       anger += 1
       BreakTime -= 1
+      Money -= 75
 #GAME OVER
     if anger >= 10:
       print("YOU ARE THE WORST PERSON I HAVE EVER SEEN")
