@@ -23,6 +23,7 @@ Event_Sack = 0
 Event_Starting_Rate = 0
 Hiding1 = 0 #is used to print "(???)"
 Hiding2 = 0
+Used_Scissors = 0
 #start
 print("Welcome to the Kitchen")
 while True:
@@ -80,7 +81,8 @@ while True:
   while User_Input_Starting_Game == "2":
     while True:
       if len(Showing) < 3:
-        Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
+        Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)]}
+        Showing.add(Want_To_Eat)
       else:
        break
     Showing_List = list(Showing)
@@ -96,8 +98,12 @@ while True:
         Hiding2 = random.randint(0,2)
       Showing_List[Hiding1] = "(???)"
       Showing_List[Hiding2] = "(???)"
-    for i in range(1,4):
-      print(f"{i}.{Showing_List[i-1]}")
+    if Used_Scissors == 1:
+      for i in range(1,4):
+        print(f"{i}.{Real_Having[i-1]}")
+    else:
+      for i in range(1,4):
+        print(f"{i}.{Showing_List[i-1]}")
     try:
       Giving = input("Enter Number or 'item'(To use items): ").strip().lower()
       if Giving == "item":
@@ -112,6 +118,7 @@ while True:
         if Item_Using_Input == "scissors" and Scissors.amount > 0 and Stated_Games > 0 and Event_Sack == 1:
           print("Used 'scissors'")
           Scissors.amount -= 1
+          Used_Scissors = 1
           continue
 #FROM HERE START FIXING:scissor event and rest of items event
       else:  
@@ -130,7 +137,7 @@ while True:
       Event_Sack = 0
       if Stated_Games > 1:
         Event_Starting_Rate = random.randint(0,100)
-        if Event_Starting_Rate > 75:
+        if Event_Starting_Rate > 65:
           Event_Sack = 1
     else:
       time.sleep(1)
