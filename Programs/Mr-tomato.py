@@ -10,7 +10,7 @@ User_Input_Starting_Game =""
 BreakTime = 15
 Stated_Games = 0
 i = 0
-Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Ice","Vanilla Cream","Cheese","Rice","Soup","Potato","Fried egg","Orange","Cream"]
+Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Ice","Vanilla Cream","Cheese","Rice","Soup","Potato","Fried egg","Orange","Cream","Grape","Watermelon","Pineapple","Mango","Cherry","Peach","Coconut"]
 Money = 0
 anger = 0
 Scissors = Items(300,0,"scissors")
@@ -18,10 +18,9 @@ Candy = Items(800,0,"candy")
 Knife = Items(2000,0,"knife")
 Radio = Items(400,0,"radio")
 Card_Key = Items(5000,0,"card key")
-Real_Want_To_Eat = Food_List[random.randint(0,13)]
-Showing_Want_To_Eat = (Real_Want_To_Eat +" ").strip()
-Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)]}
-Showing.add(Real_Want_To_Eat)
+Real_Want_To_Eat = "" #Means real food that Mr.tomato wants to eat
+Showing_Want_To_Eat = "" #Means food that Mr.tomato wants to eat but it can be hidden by events
+Showing = {} #Means You can choose food from this list to feed Mr.tomato, but it can be hidden by events 
 Angry_Food_List = ["BRAIN","EYE","HAND"]
 Int_Input = 0
 Event_Sack = 0
@@ -107,16 +106,15 @@ while Used_knife != 1:
     Stated_Games += 1
 #Playing Process  
   while User_Input_Starting_Game == "2":
-    Real_Want_To_Eat = Food_List[random.randint(0,13)]
-    Showing_Want_To_Eat = (Real_Want_To_Eat + " ").strip()
-    Showing_List = list(Showing)
-    Real_Having = Showing_List.copy()
-    while True:
-          if len(Showing) < 3:
-            Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)]}
-            Showing.add(Real_Want_To_Eat)
-          else:
-           break
+    Real_Want_To_Eat = Food_List[random.randint(0,20)]#Real Having Foods Can't be changed
+    Showing = {Food_List[random.randint(0,20)], Food_List[random.randint(0,20)]} #Showing foods can be hidden by events
+    Showing.add(Real_Want_To_Eat)
+    while len(Showing) < 3:
+      Showing = {Food_List[random.randint(0,20)], Food_List[random.randint(0,20)]} #Showing foods can be hidden by events
+      Showing.add(Real_Want_To_Eat)
+    Showing_Want_To_Eat = (Real_Want_To_Eat + " ").strip() #Want to eat food can be hidden by events
+    Showing_List = list(Showing) #Can be hidden by events
+    Real_Having = list(Showing) #Can't be hidden by events
     time.sleep(0.5)
     if Used_Radio == 1:
       print(f"I'd like to eat {Real_Want_To_Eat}")
@@ -134,8 +132,6 @@ while Used_knife != 1:
         Hiding2 = random.randint(0,2)
       Showing_List[Hiding1] = "(???)"
       Showing_List[Hiding2] = "(???)"
-    if Stated_Games > 2 and Event_Mute == 1:
-      Showing_Want_To_Eat = "________"
     if Used_Scissors == 1:
       for i in range(1,4):
         print(f"{i}.{Real_Having[i-1]}")
@@ -144,6 +140,8 @@ while Used_knife != 1:
       for i in range(1,4):
         print(f"{i}.{Showing_List[i-1]}")
         Used_Scissors = 0
+    if Stated_Games > 2 and Event_Mute == 1:
+      Showing_Want_To_Eat = "________"
     try:
       Giving = input("Enter Number or 'item'(To use items): ").strip().lower()
       if Giving == "item":
@@ -245,8 +243,8 @@ while Used_knife != 1:
       if BreakTime > 40:
         BreakTime = 40
       break
-    Want_To_Eat = Food_List[random.randint(0,13)]
-    Showing = {Food_List[random.randint(0,13)],Food_List[random.randint(0,13)],Want_To_Eat}
+    Want_To_Eat = Food_List[random.randint(0,20)]
+    Showing = {Food_List[random.randint(0,20)],Food_List[random.randint(0,20)],Want_To_Eat}
     print("")
     if Stated_Games == 7 and anger == 0:
       print("Mr.tomato: Wow,you were greater than I thought")
