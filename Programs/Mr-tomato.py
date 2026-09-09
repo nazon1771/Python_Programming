@@ -33,6 +33,7 @@ Used_Scissors = 0
 Used_knife = 0
 Used_Radio = 0
 True_Ending = 0
+Round_Initialized = False
 Code_Name = random.randint(10000,99999)
 Earned_Code = 0
 User_Final_Decision = " "
@@ -53,7 +54,7 @@ while Used_knife != 1:
   while True:
 #User Menu input
     User_Input_Starting_Game = input("Where would you go? ").strip().lower()
-    if User_Input_Starting_Game != "1" and User_Input_Starting_Game != "2" and User_Input_Starting_Game != "game" and User_Input_Starting_Game != "shop" and User_Input_Starting_Game == "3" and User_Input_Starting_Game == "credit":
+    if User_Input_Starting_Game != "1" and User_Input_Starting_Game != "2" and User_Input_Starting_Game != "game" and User_Input_Starting_Game != "shop" and User_Input_Starting_Game != "3" and User_Input_Starting_Game != "credit":
       print(User_Input_Starting_Game)
       print("ENTER CORRECT NUMBER OF PLACE NAME")
       continue
@@ -106,160 +107,163 @@ while Used_knife != 1:
     Stated_Games += 1
 #Playing Process  
   while User_Input_Starting_Game == "2":
-    Real_Want_To_Eat = Food_List[random.randint(0,20)]#Real Having Foods Can't be changed
-    Showing = {Food_List[random.randint(0,20)], Food_List[random.randint(0,20)]} #Showing foods can be hidden by events
-    Showing.add(Real_Want_To_Eat)
-    while len(Showing) < 3:
-      Showing = {Food_List[random.randint(0,20)], Food_List[random.randint(0,20)]} #Showing foods can be hidden by events
-      Showing.add(Real_Want_To_Eat)
-    Showing_Want_To_Eat = (Real_Want_To_Eat + " ").strip() #Want to eat food can be hidden by events
-    Showing_List = list(Showing) #Can be hidden by events
-    Real_Having = list(Showing) #Can't be hidden by events
-    time.sleep(0.5)
-    if Used_Radio == 1:
-      print(f"I'd like to eat {Real_Want_To_Eat}")
-      Used_Radio = 0
-    else:
-      print(f"I'd like to eat {Showing_Want_To_Eat}")
-      Used_Radio = 0
-    print(f"ANGER: {anger}")
-    print(f"Left Food: {BreakTime}")
-#Event Sack
-    if Stated_Games > 1 and Event_Sack == 1:
-      Hiding1 = random.randint(0,2)
-      Hiding2 = random.randint(0,2)
-      while Hiding1 == Hiding2:
-        Hiding2 = random.randint(0,2)
-      Showing_List[Hiding1] = "(???)"
-      Showing_List[Hiding2] = "(???)"
-    if Used_Scissors == 1:
-      for i in range(1,4):
-        print(f"{i}.{Real_Having[i-1]}")
-        Used_Scissors = 0
-    else:
-      for i in range(1,4):
-        print(f"{i}.{Showing_List[i-1]}")
-        Used_Scissors = 0
-    if Stated_Games > 2 and Event_Mute == 1:
-      Showing_Want_To_Eat = "________"
-    try:
-      Giving = input("Enter Number or 'item'(To use items): ").strip().lower()
-      if Giving == "item":
-        print(f"Scissors: {Scissors.amount}")
-        print(f"Candy: {Candy.amount}")
-        print(f"Knife: {Knife.amount}")
-        print(f"Radio: {Radio.amount}")
-        Item_Using_Input = input("Which item would you use?").strip().lower()
-        if Item_Using_Input != "scissors" and Item_Using_Input != "candy" and Item_Using_Input != "knife" and Item_Using_Input != "radio":
-          print("No Item Used")
-          time.sleep(0.5)
-          continue
-        #scissors event
-        if Item_Using_Input == "scissors" and Scissors.amount > 0 and Stated_Games > 0 and Event_Sack == 1:
-          print("Used 'scissors'")
-          Scissors.amount -= 1
-          Used_Scissors = 1
-          continue
-        if Item_Using_Input == "scissors" and Scissors.amount == 0:
-          print("You dont have scissors")
-          continue
-        #candy event
-        if Item_Using_Input == "candy" and Candy.amount > 0:
-          time.sleep(1)
-          print("Mr.tomato: Umm...delicious")
-          Candy.amount -= 1
-          anger -= 3
-          if anger < 0:
-            anger = 0
-          continue
-        if Item_Using_Input == "candy" and Candy.amount == 0:
-          print("You dont have candy")
-          continue
-        #knife event  
-        if Item_Using_Input == "knife" and Knife.amount == 1:
-          time.sleep(1)
-          print("Mr.tomato: Oh")
-          time.sleep(1)
-          print("Mr.tomato: I didn't think that you would kill me")
-          time.sleep(2)
-          print("Mr.tomato: You won,for now")
-          Used_knife = 1
-          break
-#Radio event
-        if Item_Using_Input == "radio" and Radio.amount > 0 and Event_Mute == 1:
-          print("Used 'radio'")
-          Radio.amount -= 1
-          Used_Radio = 1
-          continue
-        elif Item_Using_Input == "radio" and Radio.amount == 0:
-          print("You dont have radio")
-          continue
-      else:  
-        Int_Input = int(Giving)
-      if Int_Input > 3:
-        print("Select numbers between 1~3")
-        print("")
-        continue
-    except ValueError:
-      print("Please enter 'Number'")
-      continue  
-    if Real_Having[Int_Input-1] == Real_Want_To_Eat:
-      time.sleep(1)
-      Money += 75
-      BreakTime -= 1
-      Event_Sack = 0
-      Event_Mute = 0
-      if Stated_Games > 1:
-        Event_Starting_Rate = random.randint(0,100)
-        if Event_Starting_Rate > 65:
-          Event_Sack = 1
-      if Stated_Games > 1:
-        Event_Mute_Starting_Rate = random.randint(0,100)
-        if Event_Mute_Starting_Rate > 75:
-          Event_Mute = 1    
-    else:
-      time.sleep(1)
-      print("Mr.tomato: I'd not asked This")
-      Event_Sack = 0
-      anger += 1
-      BreakTime -= 1
-      Money -= 75
-#GAME OVER
-    if anger >= 10:
-      print("Mr.tomato: YOU ARE THE WORST PERSON I HAVE EVER SEEN")
-      time.sleep(1)
-      print("Mr.tomato: DOING THIS SIMPLE WORK IS TOO HARD FOR YOU?")
-      time.sleep(1)
-      break
-#BREAK TIME
-    if BreakTime == 0 or BreakTime < 0:
+      if not Round_Initialized:
+        Real_Want_To_Eat = Food_List[random.randint(0,20)]#Real Having Foods Can't be changed
+        Showing = {Food_List[random.randint(0,20)], Food_List[random.randint(0,20)]} #Showing foods can be hidden by events
+        Showing.add(Real_Want_To_Eat)
+        while len(Showing) < 3:
+          Showing = {Food_List[random.randint(0,20)], Food_List[random.randint(0,20)]} #Showing foods can be hidden by events
+          Showing.add(Real_Want_To_Eat)
+        Showing_Want_To_Eat = (Real_Want_To_Eat + " ").strip() #Want to eat food can be hidden by events
+        Showing_List = list(Showing) #Can be hidden by events
+        Real_Having = list(Showing) #Can't be hidden by events
+        Round_Initialized = True
       time.sleep(0.5)
-      print("Mr.tomato: Ok,I'm full for now")
-      time.sleep(1)
-      print("Mr.tomato: Come back later if I become hungry")
-      time.sleep(2)
-      print("Mr.tomato: See you later")
-      BreakTime = 15 + Stated_Games * 5
-      if BreakTime > 40:
-        BreakTime = 40
-      break
-    Want_To_Eat = Food_List[random.randint(0,20)]
-    Showing = {Food_List[random.randint(0,20)],Food_List[random.randint(0,20)],Want_To_Eat}
-    print("")
-    if Stated_Games == 7 and anger == 0:
-      print("Mr.tomato: Wow,you were greater than I thought")
-      time.sleep(1)
-      print("Mr.tomato: I was surprised")
-      time.sleep(1)
-      print("Mr.tomato: I will give you a gift,a note that I couldn't understand")
-      time.sleep(1) 
-      print(f"NOTE: {Code_Name}")
-      time.sleep(1)
-      print("Mr.tomato: I think that you will understand it")
-      time.sleep(1)
-      print("Mr.tomato: Goodbye and don't come back never again")
-      Earned_Code = 1
-      continue
+      if Used_Radio == 1:
+        print(f"I'd like to eat {Real_Want_To_Eat}")
+        Used_Radio = 0
+      else:
+        print(f"I'd like to eat {Showing_Want_To_Eat}")
+        Used_Radio = 0
+      print(f"ANGER: {anger}")
+      print(f"Left Food: {BreakTime}")
+#Event Sack
+      if Stated_Games > 1 and Event_Sack == 1:
+        Hiding1 = random.randint(0,2)
+        Hiding2 = random.randint(0,2)
+        while Hiding1 == Hiding2:
+          Hiding2 = random.randint(0,2)
+        Showing_List[Hiding1] = "(???)"
+        Showing_List[Hiding2] = "(???)"
+      if Used_Scissors == 1:
+        for i in range(1,4):
+          print(f"{i}.{Real_Having[i-1]}")
+          Used_Scissors = 0
+      else:
+        for i in range(1,4):
+          print(f"{i}.{Showing_List[i-1]}")
+          Used_Scissors = 0
+      if Stated_Games > 2 and Event_Mute == 1:
+        Showing_Want_To_Eat = "________"
+      try:
+        Giving = input("Enter Number or 'item'(To use items): ").strip().lower()
+        if Giving == "item":
+          print(f"Scissors: {Scissors.amount}")
+          print(f"Candy: {Candy.amount}")
+          print(f"Knife: {Knife.amount}")
+          print(f"Radio: {Radio.amount}")
+          Item_Using_Input = input("Which item would you use? ").strip().lower()
+          if Item_Using_Input != "scissors" and Item_Using_Input != "candy" and Item_Using_Input != "knife" and Item_Using_Input != "radio":
+            print("No Item Used")
+            time.sleep(0.5)
+            continue
+        #scissors event
+          if Item_Using_Input == "scissors" and Scissors.amount > 0 and Stated_Games > 0 and Event_Sack == 1:
+            print("Used 'scissors'")
+            Scissors.amount -= 1
+            Used_Scissors = 1
+            continue
+          if Item_Using_Input == "scissors" and Scissors.amount == 0:
+            print("You dont have scissors")
+            continue
+        #candy event
+          if Item_Using_Input == "candy" and Candy.amount > 0:
+            time.sleep(1)
+            print("Mr.tomato: Umm...delicious")
+            Candy.amount -= 1
+            anger -= 3
+            if anger < 0:
+              anger = 0
+            continue
+          if Item_Using_Input == "candy" and Candy.amount == 0:
+            print("You dont have candy")
+            continue
+        #knife event  
+          if Item_Using_Input == "knife" and Knife.amount == 1:
+            time.sleep(1)
+            print("Mr.tomato: Oh")
+            time.sleep(1)
+            print("Mr.tomato: I didn't think that you would kill me")
+            time.sleep(2)
+            print("Mr.tomato: You won,for now")
+            Used_knife = 1
+            break
+#Radio event
+          if Item_Using_Input == "radio" and Radio.amount > 0 and Event_Mute == 1:
+            print("Used 'radio'")
+            Radio.amount -= 1
+            Used_Radio = 1
+            continue
+          elif Item_Using_Input == "radio" and Radio.amount == 0:
+            print("You dont have radio")
+            continue
+        else:  
+          Int_Input = int(Giving)
+        if Int_Input > 3:
+          print("Select numbers between 1~3")
+          print("")
+          continue
+      except ValueError:
+        print("Please enter 'Number'")
+        continue  
+      if Real_Having[Int_Input-1] == Real_Want_To_Eat:
+        time.sleep(1)
+        Money += 75
+        BreakTime -= 1
+        Event_Sack = 0
+        Event_Mute = 0
+        if Stated_Games > 1:
+          Event_Starting_Rate = random.randint(0,100)
+          if Event_Starting_Rate > 65:
+            Event_Sack = 1
+        if Stated_Games > 1:
+          Event_Mute_Starting_Rate = random.randint(0,100)
+          if Event_Mute_Starting_Rate > 75:
+            Event_Mute = 1    
+      else:
+        time.sleep(1)
+        print("Mr.tomato: I'd not asked This")
+        Event_Sack = 0
+        anger += 1
+        BreakTime -= 1
+        Money -= 75
+      Round_Initialized = False
+#GAME OVER
+      if anger >= 10:
+        print("Mr.tomato: YOU ARE THE WORST PERSON I HAVE EVER SEEN")
+        time.sleep(1)
+        print("Mr.tomato: DOING THIS SIMPLE WORK IS TOO HARD FOR YOU?")
+        time.sleep(1)
+        break
+#BREAK TIME
+      if BreakTime == 0 or BreakTime < 0:
+        time.sleep(0.5)
+        print("Mr.tomato: Ok,I'm full for now")
+        time.sleep(1)
+        print("Mr.tomato: Come back later if I become hungry")
+        time.sleep(2)
+        print("Mr.tomato: See you later")
+        BreakTime = 15 + Stated_Games * 5
+        if BreakTime > 40:
+          BreakTime = 40
+        break
+      Want_To_Eat = Food_List[random.randint(0,20)]
+      Showing = {Food_List[random.randint(0,20)],Food_List[random.randint(0,20)],Want_To_Eat}
+      print("")
+      if Stated_Games == 7 and anger == 0:
+        print("Mr.tomato: Wow,you were greater than I thought")
+        time.sleep(1)
+        print("Mr.tomato: I was surprised")
+        time.sleep(1)
+        print("Mr.tomato: I will give you a gift,a note that I couldn't understand")
+        time.sleep(1) 
+        print(f"NOTE: {Code_Name}")
+        time.sleep(1)
+        print("Mr.tomato: I think that you will understand it")
+        time.sleep(1)
+        print("Mr.tomato: Goodbye and don't come back never again")
+        Earned_Code = 1
+        continue
       #SHOPPING
   while User_Input_Starting_Game == "1" or User_Input_Starting_Game == "shop":
     if Exit_Condition == False:
