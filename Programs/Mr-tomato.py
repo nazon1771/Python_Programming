@@ -5,12 +5,13 @@ class Items:
     self.amount = amount
     self.name = name
 Exit_Condition = False
+Anger_GameOver = False
 Buying_Input =""
 User_Input_Starting_Game =""
 BreakTime = 15
-Stated_Games = 0
-i = 0
-Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Ice","Vanilla Cream","Cheese","Rice","Soup","Potato","Fried egg","Orange","Cream","Grape","Watermelon","Pineapple","Mango","Cherry","Peach","Coconut"]
+Started_Games = 0
+i = 0 #Counter for loop printing having foods
+Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Ice","Vanilla Ice Cream","Cheese","Noodles","Soup","Potato","Fried egg","Orange","Glass of Milk","Grape","Watermelon","Pineapple","Mango","Cherry","Peach","Coconut"]
 Money = 0
 anger = 0
 Scissors = Items(300,0,"scissors")
@@ -39,7 +40,7 @@ Earned_Code = 0
 User_Final_Decision = " "
 #start
 print("Welcome to the Kitchen")
-while Used_knife != 1:
+while Used_knife != 1 and Anger_GameOver != True:
   time.sleep(0.5)
   print("1.Shop")
   print("2.Game")
@@ -63,7 +64,7 @@ while Used_knife != 1:
 #Credit
   if User_Input_Starting_Game == "3" or User_Input_Starting_Game == "credit":
       time.sleep(1)
-      print("MADE BY NAZON")
+      print("MADE BY nazon1771")
       print("(ft.Mimo,GitHub.dev)")
       print("")
 #How to play
@@ -77,7 +78,7 @@ while Used_knife != 1:
       time.sleep(0.5)
       print("Enter 'item' to use items in game") 
 #Game
-  if (User_Input_Starting_Game == "2" or User_Input_Starting_Game == "game") and Stated_Games == 0:
+  if (User_Input_Starting_Game == "2" or User_Input_Starting_Game == "game") and Started_Games == 0:
     #Death after true ending
     if True_Ending == 1:
       time.sleep(10)
@@ -99,12 +100,12 @@ while Used_knife != 1:
     time.sleep(2)
     print("Mr.tomato: Be ready")
     time.sleep(0.5)
-    Stated_Games += 1
-  elif User_Input_Starting_Game == "2" and Stated_Games != 0:
+    Started_Games += 1
+  elif User_Input_Starting_Game == "2" and Started_Games != 0:
     print("Mr.tomato: Welcome Back.")
     print("")
     time.sleep(0.5)
-    Stated_Games += 1
+    Started_Games += 1
 #Playing Process  
   while User_Input_Starting_Game == "2":
       if not Round_Initialized:
@@ -128,7 +129,7 @@ while Used_knife != 1:
       print(f"ANGER: {anger}")
       print(f"Left Food: {BreakTime}")
 #Event Sack
-      if Stated_Games > 1 and Event_Sack == 1:
+      if Started_Games > 1 and Event_Sack == 1:
         Hiding1 = random.randint(0,2)
         Hiding2 = random.randint(0,2)
         while Hiding1 == Hiding2:
@@ -143,7 +144,7 @@ while Used_knife != 1:
         for i in range(1,4):
           print(f"{i}.{Showing_List[i-1]}")
           Used_Scissors = 0
-      if Stated_Games > 2 and Event_Mute == 1:
+      if Started_Games > 1 and Event_Mute == 1:
         Showing_Want_To_Eat = "________"
       try:
         Giving = input("Enter Number or 'item'(To use items): ").strip().lower()
@@ -158,7 +159,7 @@ while Used_knife != 1:
             time.sleep(0.5)
             continue
         #scissors event
-          if Item_Using_Input == "scissors" and Scissors.amount > 0 and Stated_Games > 0 and Event_Sack == 1:
+          if Item_Using_Input == "scissors" and Scissors.amount > 0 and Started_Games > 0 and Event_Sack == 1:
             print("Used 'scissors'")
             Scissors.amount -= 1
             Used_Scissors = 1
@@ -212,11 +213,11 @@ while Used_knife != 1:
         BreakTime -= 1
         Event_Sack = 0
         Event_Mute = 0
-        if Stated_Games > 1:
+        if Started_Games > 1:
           Event_Starting_Rate = random.randint(0,100)
           if Event_Starting_Rate > 65:
             Event_Sack = 1
-        if Stated_Games > 1:
+        if Started_Games > 1:
           Event_Mute_Starting_Rate = random.randint(0,100)
           if Event_Mute_Starting_Rate > 75:
             Event_Mute = 1    
@@ -234,23 +235,52 @@ while Used_knife != 1:
         time.sleep(1)
         print("Mr.tomato: DOING THIS SIMPLE WORK IS TOO HARD FOR YOU?")
         time.sleep(1)
-        break
+        BreakTime = 10
+        for i in range(1,11):
+          print("Mr.tomato: Feed Me")
+          print(f"Left Food: {BreakTime}")
+          print(f"ANGER: {anger}")
+          for i in range(1,4):
+            print(f"{i}.{Angry_Food_List[i-1]}")
+          try:
+              Int_Input = int(input("Enter Number: "))
+              if Int_Input > 3:
+                print("Select numbers between 1~3")
+                print("")
+              BreakTime -= 1
+              time.sleep(1)
+              print("")
+              if BreakTime == 0:
+                print("Mr.tomato: OK,YOU DID A GREAT JOB")
+                time.sleep(1)
+                print("Mr.tomato: NOW, GET OUT OF MY SIGHT")
+                time.sleep(1)
+                Anger_GameOver = True
+                break
+              continue
+          except ValueError:
+              print("Please enter 'Number'")
+              time.sleep(1)
+              continue
+        
 #BREAK TIME
       if BreakTime == 0 or BreakTime < 0:
+        if Anger_GameOver == True:
+          break
         time.sleep(0.5)
         print("Mr.tomato: Ok,I'm full for now")
         time.sleep(1)
         print("Mr.tomato: Come back later if I become hungry")
         time.sleep(2)
         print("Mr.tomato: See you later")
-        BreakTime = 15 + Stated_Games * 5
+        BreakTime = 15 + Started_Games * 5
         if BreakTime > 40:
           BreakTime = 40
         break
       Want_To_Eat = Food_List[random.randint(0,20)]
       Showing = {Food_List[random.randint(0,20)],Food_List[random.randint(0,20)],Want_To_Eat}
       print("")
-      if Stated_Games == 7 and anger == 0:
+      if Started_Games == 7 and anger == 0:
         print("Mr.tomato: Wow,you were greater than I thought")
         time.sleep(1)
         print("Mr.tomato: I was surprised")
