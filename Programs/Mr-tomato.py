@@ -4,6 +4,10 @@ class Items:
     self.price = price
     self.amount = amount
     self.name = name
+class Boss_Fighting_Foods:
+  def __init__ (self,dmg,add_anger):
+    self.dmg = dmg
+    self.add_anger = add_anger
 Exit_Condition = False
 Anger_GameOver = False
 Buying_Input =""
@@ -11,7 +15,21 @@ User_Input_Starting_Game =""
 BreakTime = 15
 Started_Games = 0
 i = 0 #Counter for loop printing having foods
-Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Ice","Vanilla Ice Cream","Cheese","Noodles","Soup","Potato","Fried egg","Orange","Glass of Milk","Grape","Watermelon","Pineapple","Mango","Cherry","Peach","Coconut"]
+Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Donut","Vanilla Ice Cream","Cheese","Noodles","Soup","Potato","Fried egg","Orange","Glass of Milk","Grape","Watermelon","Pineapple","Mango","Cherry","Peach","Coconut"]
+Donut = Boss_Fighting_Foods(-40,-3)
+Vanilla_Ice_Cream = Boss_Fighting_Foods(-30,-3)
+Mango = Boss_Fighting_Foods(-25,-1)
+Grape = Boss_Fighting_Foods(-20,-1)
+Apple = Boss_Fighting_Foods(-15,-1)
+Peach = Boss_Fighting_Foods(-10,-1)
+Sugary_Foods = [Donut, Vanilla_Ice_Cream, Mango, Grape, Apple, Peach]
+Glass_of_Poison = Boss_Fighting_Foods(50,4)
+Pepper = Boss_Fighting_Foods(40,3)
+Lemon = Boss_Fighting_Foods(25,2)
+Hot_Noodles = Boss_Fighting_Foods(20,3)
+DMG_Foods = [Glass_of_Poison,Pepper,Lemon,Hot_Noodles]
+Boss_Fight_Foods_Showing = set(DMG_Foods) | set(Sugary_Foods)
+Boss_Fight_Foods_List = list(Boss_Fight_Foods_Showing)
 Money = 0
 anger = 0
 Scissors = Items(300,0,"scissors")
@@ -38,9 +56,12 @@ Round_Initialized = False
 Code_Name = random.randint(10000,99999)
 Earned_Code = 0
 User_Final_Decision = " "
+Boss_HP = 200
+Boss_Fighting_GameOver = False
+Tomato_Boss_Death = False
 #start
 print("Welcome to the Kitchen")
-while Used_knife != 1 and Anger_GameOver != True:
+while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != True:
   time.sleep(0.5)
   print("1.Shop")
   print("2.Game")
@@ -158,7 +179,7 @@ while Used_knife != 1 and Anger_GameOver != True:
             print("No Item Used")
             time.sleep(0.5)
             continue
-        #scissors event
+#scissors event
           if Item_Using_Input == "scissors" and Scissors.amount > 0 and Started_Games > 0 and Event_Sack == 1:
             print("Used 'scissors'")
             Scissors.amount -= 1
@@ -167,7 +188,7 @@ while Used_knife != 1 and Anger_GameOver != True:
           if Item_Using_Input == "scissors" and Scissors.amount == 0:
             print("You dont have scissors")
             continue
-        #candy event
+#candy event
           if Item_Using_Input == "candy" and Candy.amount > 0:
             time.sleep(1)
             print("Mr.tomato: Umm...delicious")
@@ -179,7 +200,7 @@ while Used_knife != 1 and Anger_GameOver != True:
           if Item_Using_Input == "candy" and Candy.amount == 0:
             print("You dont have candy")
             continue
-        #knife event  
+#knife event  
           if Item_Using_Input == "knife" and Knife.amount == 1:
             time.sleep(1)
             print("Mr.tomato: Oh")
@@ -253,7 +274,7 @@ while Used_knife != 1 and Anger_GameOver != True:
               if BreakTime == 0:
                 print("Mr.tomato: OK,YOU DID A GREAT JOB")
                 time.sleep(1)
-                print("Mr.tomato: NOW, GET OUT OF MY SIGHT")
+                print("Mr.tomato: NOW, DIE")
                 time.sleep(1)
                 Anger_GameOver = True
                 break
@@ -294,6 +315,71 @@ while Used_knife != 1 and Anger_GameOver != True:
         print("Mr.tomato: Goodbye and don't come back never again")
         Earned_Code = 1
         continue
+      if Started_Games == 7 and anger > 0:
+        print("Mr.tomato: You Did A Great Job")
+        time.sleep(1)
+        print("Mr.tomato: I became Stronger than before")
+        time.sleep(1)
+        print("Mr.tomato: Now, You are USELESS")
+        time.sleep(1)
+        print("Mr.tomato: THEN..")
+        time.sleep(2)
+        print("Mr.tomato: DIE")
+        anger = 0
+        while boss_HP > 0:
+          print("FEED HIM!")
+          print(f"Boss HP: {Boss_HP}")
+          print(f"anger: {anger}")
+          for i in range(1,4):
+            print(f"{i}.{Boss_Fight_Foods_List[i-1]}")
+          try:
+              Int_Input = int(input("Enter Number: "))
+              if Int_Input > 3:
+                print("Select numbers between 1~3")
+                print("")
+              if Boss_Fight_Foods_List[Int_Input-1] == Glass_of_Poison:
+                anger -= Glass_of_Poison.add_anger
+                Boss_HP -= Glass_of_Poison.dmg
+              elif Boss_Fight_Foods_List[Int_Input-1] == Pepper:
+                anger -= Pepper.add_anger
+                Boss_HP -= Pepper.dmg
+              elif Boss_Fight_Foods_List[Int_Input-1] == Lemon:
+                anger -= Lemon.add_anger
+                Boss_HP -= Lemon.dmg
+              elif Boss_Fight_Foods_List[Int_Input-1] == Hot_Noodles:
+                anger -= Hot_Noodles.add_anger
+                Boss_HP -= Hot_Noodles.dmg
+              elif Boss_Fight_Foods_List[Int_Input-1] == Donut:
+                anger -= Donut.add_anger
+                Boss_HP -= Donut.dmg
+              elif Boss_Fight_Foods_List[Int_Input-1] == Vanilla_Ice_Cream:
+                anger -= Vanilla_Ice_Cream.add_anger
+                Boss_HP -= Vanilla_Ice_Cream.dmg
+              elif Boss_Fight_Foods_List[Int_Input-1] == Mango:
+                anger -= Mango.add_anger
+                Boss_HP -= Mango.dmg
+              elif Boss_Fight_Foods_List[Int_Input-1] == Grape:
+                anger -= Grape.add_anger
+                Boss_HP -= Grape.dmg
+              elif Boss_Fight_Foods_List[Int_Input-1] == Apple:
+                anger -= Apple.add_anger
+                Boss_HP -= Apple.dmg
+              elif Boss_Fight_Foods_List[Int_Input-1] == Peach:
+                anger -= Peach.add_anger
+                Boss_HP -= Peach.dmg
+              if anger > 10 and Boss_HP > 0:
+                boss_Fighting_GameOver = True
+                break
+              if Boss_HP <= 0:
+                print("Mr.tomato: ...")
+                time.sleep(1)
+                print("Mr.tomato: You won")
+                Tomato_Boss_Death = True
+                break
+          except ValueError:
+              print("Please enter 'Number'")
+              time.sleep(1)
+              continue
       #SHOPPING
   while User_Input_Starting_Game == "1" or User_Input_Starting_Game == "shop":
     if Exit_Condition == False:
