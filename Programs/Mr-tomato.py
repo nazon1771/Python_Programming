@@ -326,7 +326,7 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
         time.sleep(2)
         print("Mr.tomato: DIE")
         anger = 0
-        while boss_HP > 0:
+        while Tomato_Boss_Death != True:
           print("FEED HIM!")
           print(f"Boss HP: {Boss_HP}")
           print(f"anger: {anger}")
