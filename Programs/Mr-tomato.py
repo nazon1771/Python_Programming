@@ -5,9 +5,10 @@ class Items:
     self.amount = amount
     self.name = name
 class Boss_Fighting_Foods:
-  def __init__ (self,dmg,add_anger):
+  def __init__ (self,dmg,add_anger,name):
     self.dmg = dmg
     self.add_anger = add_anger
+    self.name = name
 Exit_Condition = False
 Anger_GameOver = False
 Buying_Input =""
@@ -16,17 +17,17 @@ BreakTime = 15
 Started_Games = 0
 i = 0 #Counter for loop printing having foods
 Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Donut","Vanilla Ice Cream","Cheese","Noodles","Soup","Potato","Fried egg","Orange","Glass of Milk","Grape","Watermelon","Pineapple","Mango","Cherry","Peach","Coconut"]
-Donut = Boss_Fighting_Foods(-40,-3)
-Vanilla_Ice_Cream = Boss_Fighting_Foods(-30,-3)
-Mango = Boss_Fighting_Foods(-25,-1)
-Grape = Boss_Fighting_Foods(-20,-1)
-Apple = Boss_Fighting_Foods(-15,-1)
-Peach = Boss_Fighting_Foods(-10,-1)
+Donut = Boss_Fighting_Foods(-40,-3,"Donut")
+Vanilla_Ice_Cream = Boss_Fighting_Foods(-30,-3,"Vanilla Ice Cream")
+Mango = Boss_Fighting_Foods(-25,-1,"Mango")
+Grape = Boss_Fighting_Foods(-20,-1,"Grape")
+Apple = Boss_Fighting_Foods(-15,-1,"Apple")
+Peach = Boss_Fighting_Foods(-10,-1,"Peach")
 Sugary_Foods = [Donut, Vanilla_Ice_Cream, Mango, Grape, Apple, Peach]
-Glass_of_Poison = Boss_Fighting_Foods(50,4)
-Pepper = Boss_Fighting_Foods(40,3)
-Lemon = Boss_Fighting_Foods(25,2)
-Hot_Noodles = Boss_Fighting_Foods(20,3)
+Glass_of_Poison = Boss_Fighting_Foods(50,4,"Glass of Poison")
+Pepper = Boss_Fighting_Foods(40,3,"Pepper")
+Lemon = Boss_Fighting_Foods(25,2,"Lemon")
+Hot_Noodles = Boss_Fighting_Foods(20,3,"Hot Noodles")
 DMG_Foods = [Glass_of_Poison,Pepper,Lemon,Hot_Noodles]
 Boss_Fight_Foods_Showing = set(DMG_Foods) | set(Sugary_Foods)
 Boss_Fight_Foods_List = list(Boss_Fight_Foods_Showing)
@@ -315,7 +316,7 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
         print("Mr.tomato: Goodbye and don't come back never again")
         Earned_Code = 1
         continue
-      if Started_Games == 7 and anger > 0:
+      if Started_Games == 7 and anger > 0 and BreakTime == 0:
         print("Mr.tomato: You Did A Great Job")
         time.sleep(1)
         print("Mr.tomato: I became Stronger than before")
@@ -331,7 +332,7 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
           print(f"Boss HP: {Boss_HP}")
           print(f"anger: {anger}")
           for i in range(1,4):
-            print(f"{i}.{Boss_Fight_Foods_List[i-1]}")
+            print(f"{i}.{Boss_Fight_Foods_List[i-1].name}")
           try:
               Int_Input = int(input("Enter Number: "))
               if Int_Input > 3:
