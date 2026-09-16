@@ -17,20 +17,20 @@ BreakTime = 15
 Started_Games = 0
 i = 0 #Counter for loop printing having foods
 Food_List = ["Salad","Lemon","Banana","Strawberry","Apple","Donut","Vanilla Ice Cream","Cheese","Noodles","Soup","Potato","Fried egg","Orange","Glass of Milk","Grape","Watermelon","Pineapple","Mango","Cherry","Peach","Coconut"]
-Donut = Boss_Fighting_Foods(-40,-3,"Donut")
+Donut = Boss_Fighting_Foods(-40,-4,"Donut")
 Vanilla_Ice_Cream = Boss_Fighting_Foods(-30,-3,"Vanilla Ice Cream")
-Mango = Boss_Fighting_Foods(-25,-1,"Mango")
-Grape = Boss_Fighting_Foods(-20,-1,"Grape")
-Apple = Boss_Fighting_Foods(-15,-1,"Apple")
-Peach = Boss_Fighting_Foods(-10,-1,"Peach")
+Mango = Boss_Fighting_Foods(-25,-3,"Mango")
+Grape = Boss_Fighting_Foods(-20,-3,"Grape")
+Apple = Boss_Fighting_Foods(-15,-2,"Apple")
+Peach = Boss_Fighting_Foods(-10,-2,"Peach")
 Sugary_Foods = [Donut, Vanilla_Ice_Cream, Mango, Grape, Apple, Peach]
-Glass_of_Poison = Boss_Fighting_Foods(50,4,"Glass of Poison")
+Glass_of_Poison = Boss_Fighting_Foods(50,3,"Glass of Poison")
 Pepper = Boss_Fighting_Foods(40,3,"Pepper")
-Lemon = Boss_Fighting_Foods(25,2,"Lemon")
-Hot_Noodles = Boss_Fighting_Foods(20,3,"Hot Noodles")
+Lemon = Boss_Fighting_Foods(30,2,"Lemon")
+Hot_Noodles = Boss_Fighting_Foods(35,2,"Hot Noodles")
 DMG_Foods = [Glass_of_Poison,Pepper,Lemon,Hot_Noodles]
-Boss_Fight_Foods_Showing = set(DMG_Foods) | set(Sugary_Foods)
-Boss_Fight_Foods_List = list(Boss_Fight_Foods_Showing)
+Boss_Fight_Foods = set(DMG_Foods) | set(Sugary_Foods)
+Boss_Fight_Foods_List = list(Boss_Fight_Foods)
 Money = 0
 anger = 0
 Scissors = Items(300,0,"scissors")
@@ -61,8 +61,8 @@ Boss_HP = 200
 Boss_Fighting_GameOver = False
 Tomato_Boss_Death = False
 #start
-print("Welcome to the Kitchen")
-while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != True:
+print("Welcome to the Game")
+while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != True and Tomato_Boss_Death != True:
   time.sleep(0.5)
   print("1.Shop")
   print("2.Game")
@@ -284,10 +284,104 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
               print("Please enter 'Number'")
               time.sleep(1)
               continue
-        
+      if Started_Games == 8 and anger == 0 and BreakTime == 0:
+              print("Mr.tomato: Wow,you were greater than I thought")
+              time.sleep(1)
+              print("Mr.tomato: I was surprised")
+              time.sleep(1)
+              print("Mr.tomato: I will give you a gift,a note that I couldn't understand")
+              time.sleep(1) 
+              print(f"NOTE: {Code_Name}")
+              time.sleep(1)
+              print("Mr.tomato: I think that you will understand it")
+              time.sleep(1)
+              print("Mr.tomato: Goodbye and don't come back never again")
+              Earned_Code = 1
+              continue
+      if Started_Games == 8 and anger > 0 and BreakTime == 0:
+              print("Mr.tomato: You Did A Great Job")
+              time.sleep(1)
+              print("Mr.tomato: I became Stronger than before")
+              time.sleep(1)
+              print("Mr.tomato: Now, You are USELESS")
+              time.sleep(1)
+              print("Mr.tomato: THEN..")
+              time.sleep(2)
+              print("Mr.tomato: DIE")
+              anger = 0
+              time.sleep(1)
+              while Tomato_Boss_Death != True:
+                print("FEED HIM!")
+                print(f"Boss HP: {Boss_HP}")
+                print(f"anger: {anger}")
+                Boss_Fight_Foods_Shuffle = set(Boss_Fight_Foods)
+                Boss_Fight_Foods_List = list(Boss_Fight_Foods_Shuffle)
+                Sugary_Food_Amount = random.randint(1,2)
+                DMG_Food_Amount = 3 - Sugary_Food_Amount
+                Boss_Fight_Food_Showing = random.sample(Sugary_Foods, Sugary_Food_Amount) + random.sample(DMG_Foods, DMG_Food_Amount)
+                for i in range(1,4):
+                  print(f"{i}.{Boss_Fight_Food_Showing[i-1].name}")
+                try:
+                    Int_Input = int(input("Enter Number: "))
+                    if Int_Input > 3:
+                      print("Select numbers between 1~3")
+                      print("")
+                    if Boss_Fight_Food_Showing[Int_Input-1] == Glass_of_Poison:
+                      anger += Glass_of_Poison.add_anger
+                      Boss_HP -= Glass_of_Poison.dmg
+                    elif Boss_Fight_Food_Showing[Int_Input-1] == Pepper:
+                      anger += Pepper.add_anger
+                      Boss_HP -= Pepper.dmg
+                    elif Boss_Fight_Food_Showing[Int_Input-1] == Lemon:
+                      anger += Lemon.add_anger
+                      Boss_HP -= Lemon.dmg
+                    elif Boss_Fight_Food_Showing[Int_Input-1] == Hot_Noodles:
+                      anger += Hot_Noodles.add_anger
+                      Boss_HP -= Hot_Noodles.dmg
+                    elif Boss_Fight_Food_Showing[Int_Input-1] == Donut:
+                      anger += Donut.add_anger
+                      Boss_HP -= Donut.dmg
+                    elif Boss_Fight_Food_Showing[Int_Input-1] == Vanilla_Ice_Cream:
+                      anger += Vanilla_Ice_Cream.add_anger
+                      Boss_HP -= Vanilla_Ice_Cream.dmg
+                    elif Boss_Fight_Food_Showing[Int_Input-1] == Mango:
+                      anger += Mango.add_anger
+                      Boss_HP -= Mango.dmg
+                    elif Boss_Fight_Food_Showing[Int_Input-1] == Grape:
+                      anger += Grape.add_anger
+                      Boss_HP -= Grape.dmg
+                    elif Boss_Fight_Food_Showing[Int_Input-1] == Apple:
+                      anger += Apple.add_anger
+                      Boss_HP -= Apple.dmg
+                    elif Boss_Fight_Food_Showing[Int_Input-1] == Peach:
+                      anger += Peach.add_anger
+                      Boss_HP -= Peach.dmg
+                    print(f"You Fed {Boss_Fight_Food_Showing[Int_Input-1].name}!")
+                    time.sleep(0.5)
+                    print(" ")
+                    time.sleep(0.5)
+                    if anger < 0:
+                      anger = 0
+                    if Boss_HP >= 200:
+                      Boss_HP = 200
+                    if anger >= 10 and Boss_HP > 0:
+                      print("Mr.tomato: BYE")
+                      Boss_Fighting_GameOver = True
+                      time.sleep(1)
+                      break
+                    if Boss_HP <= 0:
+                      print("Mr.tomato: ...")
+                      time.sleep(1)
+                      print("Mr.tomato: You won")
+                      Tomato_Boss_Death = True
+                      break
+                except ValueError:
+                    print("Please enter 'Number'")
+                    time.sleep(1)
+                    continue          
 #BREAK TIME
       if BreakTime == 0 or BreakTime < 0:
-        if Anger_GameOver == True:
+        if Tomato_Boss_Death == True or Anger_GameOver == True or Boss_Fighting_GameOver == True:
           break
         time.sleep(0.5)
         print("Mr.tomato: Ok,I'm full for now")
@@ -302,85 +396,6 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
       Want_To_Eat = Food_List[random.randint(0,20)]
       Showing = {Food_List[random.randint(0,20)],Food_List[random.randint(0,20)],Want_To_Eat}
       print("")
-      if Started_Games == 7 and anger == 0:
-        print("Mr.tomato: Wow,you were greater than I thought")
-        time.sleep(1)
-        print("Mr.tomato: I was surprised")
-        time.sleep(1)
-        print("Mr.tomato: I will give you a gift,a note that I couldn't understand")
-        time.sleep(1) 
-        print(f"NOTE: {Code_Name}")
-        time.sleep(1)
-        print("Mr.tomato: I think that you will understand it")
-        time.sleep(1)
-        print("Mr.tomato: Goodbye and don't come back never again")
-        Earned_Code = 1
-        continue
-      if Started_Games == 7 and anger > 0 and BreakTime == 0:
-        print("Mr.tomato: You Did A Great Job")
-        time.sleep(1)
-        print("Mr.tomato: I became Stronger than before")
-        time.sleep(1)
-        print("Mr.tomato: Now, You are USELESS")
-        time.sleep(1)
-        print("Mr.tomato: THEN..")
-        time.sleep(2)
-        print("Mr.tomato: DIE")
-        anger = 0
-        while Tomato_Boss_Death != True:
-          print("FEED HIM!")
-          print(f"Boss HP: {Boss_HP}")
-          print(f"anger: {anger}")
-          for i in range(1,4):
-            print(f"{i}.{Boss_Fight_Foods_List[i-1].name}")
-          try:
-              Int_Input = int(input("Enter Number: "))
-              if Int_Input > 3:
-                print("Select numbers between 1~3")
-                print("")
-              if Boss_Fight_Foods_List[Int_Input-1] == Glass_of_Poison:
-                anger -= Glass_of_Poison.add_anger
-                Boss_HP -= Glass_of_Poison.dmg
-              elif Boss_Fight_Foods_List[Int_Input-1] == Pepper:
-                anger -= Pepper.add_anger
-                Boss_HP -= Pepper.dmg
-              elif Boss_Fight_Foods_List[Int_Input-1] == Lemon:
-                anger -= Lemon.add_anger
-                Boss_HP -= Lemon.dmg
-              elif Boss_Fight_Foods_List[Int_Input-1] == Hot_Noodles:
-                anger -= Hot_Noodles.add_anger
-                Boss_HP -= Hot_Noodles.dmg
-              elif Boss_Fight_Foods_List[Int_Input-1] == Donut:
-                anger -= Donut.add_anger
-                Boss_HP -= Donut.dmg
-              elif Boss_Fight_Foods_List[Int_Input-1] == Vanilla_Ice_Cream:
-                anger -= Vanilla_Ice_Cream.add_anger
-                Boss_HP -= Vanilla_Ice_Cream.dmg
-              elif Boss_Fight_Foods_List[Int_Input-1] == Mango:
-                anger -= Mango.add_anger
-                Boss_HP -= Mango.dmg
-              elif Boss_Fight_Foods_List[Int_Input-1] == Grape:
-                anger -= Grape.add_anger
-                Boss_HP -= Grape.dmg
-              elif Boss_Fight_Foods_List[Int_Input-1] == Apple:
-                anger -= Apple.add_anger
-                Boss_HP -= Apple.dmg
-              elif Boss_Fight_Foods_List[Int_Input-1] == Peach:
-                anger -= Peach.add_anger
-                Boss_HP -= Peach.dmg
-              if anger > 10 and Boss_HP > 0:
-                boss_Fighting_GameOver = True
-                break
-              if Boss_HP <= 0:
-                print("Mr.tomato: ...")
-                time.sleep(1)
-                print("Mr.tomato: You won")
-                Tomato_Boss_Death = True
-                break
-          except ValueError:
-              print("Please enter 'Number'")
-              time.sleep(1)
-              continue
       #SHOPPING
   while User_Input_Starting_Game == "1" or User_Input_Starting_Game == "shop":
     if Exit_Condition == False:
@@ -463,13 +478,25 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
     print("1.DELETE")
     print("2.SAVE")
     User_Final_Decision = input("WHAT WOULD YOU DO? ").strip().lower()
-    if User_Final_Decision == "1" and Card_Key.amount == 1:
+    if User_Final_Decision == "1":
       time.sleep(2)
-      print("DELETEING DATA ...")
-      time.sleep(2)
-      print("Mr.tomato: WAIT, WHAT ARE YOU DOING?!")
-      time.sleep(1)
-      print("Mr.tomato: ...You were smarter than I thought")
-      time.sleep(1)
-      print("Mr.tomato: ..YOU WON")
-      break
+      if Card_Key.amount == 1:
+        time.sleep(2)
+        print("DELETEING DATA ...")
+        time.sleep(2)
+        print("Mr.tomato: WAIT, WHAT ARE YOU DOING?!")
+        time.sleep(1)
+        print("Mr.tomato: ...You were smarter than I thought")
+        time.sleep(1)
+        print("Mr.tomato: ..YOU WON")
+        break
+      elif Card_Key.amount == 0:
+        time.sleep(3)
+        print("Mr.tomato: DO YOU THINK THAT YOU WON ME?")
+        time.sleep(1)
+        print("Mr.tomato: YOU WERE SILLIER THAN I THOUGHT")
+        time.sleep(1)
+        print("Mr.tomato: I'M GOD FROM NOW")
+        time.sleep(1)
+        print("Mr.tomato: DIE")
+      
