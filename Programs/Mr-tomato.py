@@ -499,4 +499,4 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
         print("Mr.tomato: I'M GOD FROM NOW")
         time.sleep(1)
         print("Mr.tomato: DIE")
-      
+        break
