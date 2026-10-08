@@ -53,6 +53,7 @@ Used_Scissors = 0
 Used_knife = 0
 Used_Radio = 0
 True_Ending = 0
+Bad_Ending = 0
 Round_Initialized = False
 Code_Name = random.randint(10000,99999)
 Earned_Code = 0
@@ -62,7 +63,7 @@ Boss_Fighting_GameOver = False
 Tomato_Boss_Death = False
 #start
 print("Welcome to the Game")
-while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != True and Tomato_Boss_Death != True:
+while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != True and Tomato_Boss_Death != True and Bad_Ending != 1:
   time.sleep(0.5)
   print("1.Game")
   print("2.Shop")
@@ -77,7 +78,7 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
   while True:
 #User Menu input
     User_Input_Starting_Game = input("Where would you go? ").strip().lower()
-    if User_Input_Starting_Game != "1" and User_Input_Starting_Game != "2" and User_Input_Starting_Game != "game" and User_Input_Starting_Game != "shop" and User_Input_Starting_Game != "3" and User_Input_Starting_Game != "credit":
+    if User_Input_Starting_Game != "1" and User_Input_Starting_Game != "2" and User_Input_Starting_Game != "game" and User_Input_Starting_Game != "shop" and User_Input_Starting_Game != "3" and User_Input_Starting_Game != "credit" and User_Input_Starting_Game != "4" and User_Input_Starting_Game != "how to play" and User_Input_Starting_Game != "5" and User_Input_Starting_Game != "???":
       print(User_Input_Starting_Game)
       print("ENTER CORRECT NUMBER OF PLACE NAME")
       continue
@@ -90,15 +91,16 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
       print("(with.Mimo,GitHub.dev)")
       print("")
 #How to play
-  if User_Input_Starting_Game == "4" or User_Input_Starting_Game == "how to play":
+  elif User_Input_Starting_Game == "4" or User_Input_Starting_Game == "how to play":
       time.sleep(1)
       print("Enter food number to feed Mr.tomato")
       time.sleep(0.5)
       print("You can earn money when you fed correct food")
       time.sleep(0.5)
-      print("With money, you can buy items,which can ease Game Play")   
+      print("With money, you can buy items, which can ease Game Play")   
       time.sleep(0.5)
       print("Enter 'item' to use items in game") 
+      print("")
 #Game
   if (User_Input_Starting_Game == "1" or User_Input_Starting_Game == "game") and Started_Games == 0:
     #Death after true ending
@@ -123,13 +125,13 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
     print("Mr.tomato: Be ready")
     time.sleep(0.5)
     Started_Games += 1
-  elif User_Input_Starting_Game == "1" and Started_Games != 0:
+  elif (User_Input_Starting_Game == "1" or User_Input_Starting_Game == "game") and Started_Games != 0:
     print("Mr.tomato: Welcome Back.")
     print("")
     time.sleep(0.5)
     Started_Games += 1
 #Playing Process  
-  while User_Input_Starting_Game == "1" or User_Input_Starting_Game == "game":
+  while (User_Input_Starting_Game == "1" or User_Input_Starting_Game == "game"):
       if not Round_Initialized:
         Real_Want_To_Eat = Food_List[random.randint(0,20)]#Real Having Foods Can't be changed
         Showing = {Food_List[random.randint(0,20)], Food_List[random.randint(0,20)]} #Showing foods can be hidden by events
@@ -233,6 +235,10 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
           print("Select numbers between 1~3")
           print("")
           continue
+        elif Int_Input < 1:
+          print("Select numbers between 1~3")
+          print("")
+          continue
       except ValueError:
         print("Please enter 'Number'")
         continue  
@@ -276,6 +282,11 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
               if Int_Input > 3:
                 print("Select numbers between 1~3")
                 print("")
+                continue
+              elif Int_Input < 1:
+                print("Select numbers between 1~3")
+                print("")
+                continue
               BreakTime -= 1
               time.sleep(1)
               print("")
@@ -314,7 +325,13 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
               time.sleep(1)
               print("Mr.tomato: THEN..")
               time.sleep(2)
-              print("Mr.tomato: DIE")
+              print("Mr.tomato: Give")
+              time.sleep(0.5)
+              print("Mr.tomato: Me")
+              time.sleep(0.5)
+              print("Mr.tomato: Your")
+              time.sleep(0.5)
+              print("Mr.tomato: SOUL")
               anger = 0
               time.sleep(1)
               while Tomato_Boss_Death != True:
@@ -333,6 +350,11 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
                     if Int_Input > 3:
                       print("Select numbers between 1~3")
                       print("")
+                      continue
+                    if Int_Input < 1:
+                      print("Select numbers between 1~3")
+                      print("")
+                      continue
                     if Boss_Fight_Food_Showing[Int_Input-1] == Glass_of_Poison:
                       anger += Glass_of_Poison.add_anger
                       Boss_HP -= Glass_of_Poison.dmg
@@ -468,6 +490,9 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
           print("")
       elif Buying_Input == "5":
         if Money >= Card_Key.price:
+          if Card_Key.amount == 1:
+            print("You already have card key")
+            continue
           Money -= Card_Key.price
           Card_Key.amount += 1
           print("Purchased 'Card Key'!")
@@ -480,16 +505,19 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
     elif Exit_Condition == True:
       Exit_Condition = False
       break
-  while User_Input_Starting_Game == "5" and Earned_Code == 1:
+  while (User_Input_Starting_Game == "5" or User_Input_Starting_Game == "???"):
+    if Earned_Code != 1:
+      print("You need a code to enter this place")
+      continue
     print("--------???--------")
     print("1.DELETE")
     print("2.SAVE")
-    User_Final_Decision = input("WHAT WOULD YOU DO? ").strip().lower()
-    if User_Final_Decision == "1":
+    User_Final_Decision = input("SYSTEM: WHAT WOULD YOU DO? ").strip().lower()
+    if User_Final_Decision == "1" or User_Final_Decision == "delete":
       time.sleep(2)
       if Card_Key.amount == 1:
         time.sleep(2)
-        print("DELETEING DATA ...")
+        print("SYSTEM: DELETEING DATA ...")
         time.sleep(2)
         print("Mr.tomato: WAIT, WHAT ARE YOU DOING?!")
         time.sleep(1)
@@ -503,7 +531,28 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
         time.sleep(1)
         print("Mr.tomato: YOU WERE SILLIER THAN I THOUGHT")
         time.sleep(1)
-        print("Mr.tomato: I'M GOD FROM NOW")
+        print("Mr.tomato: I'M GOD NOW")
         time.sleep(1)
         print("Mr.tomato: DIE")
+        Bad_Ending = 1
         break
+    if User_Final_Decision == "2" or User_Final_Decision == "save":
+      time.sleep(1)
+      print("SYSTEM: SAVING DATA ...")
+      time.sleep(1)
+      print("SYSTEM: DATA SAVED") 
+      time.sleep(5)
+      print(".")
+      time.sleep(1)
+      print(".")
+      time.sleep(1)
+      print(".")
+      time.sleep(1)
+      print("..?")
+      time.sleep(1)
+      print("Mr.tomato: YOU WERE SILLIER THAN I THOUGHT")
+      time.sleep(1)
+      print("Mr.tomato: DIE.")
+      Bad_Ending = 1
+      break
+
