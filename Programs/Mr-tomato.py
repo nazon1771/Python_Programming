@@ -238,7 +238,7 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
         continue  
       if Real_Having[Int_Input-1] == Real_Want_To_Eat:
         time.sleep(1)
-        Money += 75
+        Money += (random.randint(7,15) * 10)
         BreakTime -= 1
         Event_Sack = 0
         Event_Mute = 0
