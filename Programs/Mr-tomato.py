@@ -64,8 +64,8 @@ Tomato_Boss_Death = False
 print("Welcome to the Game")
 while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != True and Tomato_Boss_Death != True:
   time.sleep(0.5)
-  print("1.Shop")
-  print("2.Game")
+  print("1.Game")
+  print("2.Shop")
   print("3.Credit")
   print("4.How to play")
   print(f"Money: {Money}")
@@ -87,7 +87,7 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
   if User_Input_Starting_Game == "3" or User_Input_Starting_Game == "credit":
       time.sleep(1)
       print("MADE BY nazon1771")
-      print("(ft.Mimo,GitHub.dev)")
+      print("(with.Mimo,GitHub.dev)")
       print("")
 #How to play
   if User_Input_Starting_Game == "4" or User_Input_Starting_Game == "how to play":
@@ -100,7 +100,7 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
       time.sleep(0.5)
       print("Enter 'item' to use items in game") 
 #Game
-  if (User_Input_Starting_Game == "2" or User_Input_Starting_Game == "game") and Started_Games == 0:
+  if (User_Input_Starting_Game == "1" or User_Input_Starting_Game == "game") and Started_Games == 0:
     #Death after true ending
     if True_Ending == 1:
       time.sleep(10)
@@ -123,13 +123,13 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
     print("Mr.tomato: Be ready")
     time.sleep(0.5)
     Started_Games += 1
-  elif User_Input_Starting_Game == "2" and Started_Games != 0:
+  elif User_Input_Starting_Game == "1" and Started_Games != 0:
     print("Mr.tomato: Welcome Back.")
     print("")
     time.sleep(0.5)
     Started_Games += 1
 #Playing Process  
-  while User_Input_Starting_Game == "2":
+  while User_Input_Starting_Game == "1" or User_Input_Starting_Game == "game":
       if not Round_Initialized:
         Real_Want_To_Eat = Food_List[random.randint(0,20)]#Real Having Foods Can't be changed
         Showing = {Food_List[random.randint(0,20)], Food_List[random.randint(0,20)]} #Showing foods can be hidden by events
@@ -142,6 +142,8 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
         Real_Having = list(Showing) #Can't be hidden by events
         Round_Initialized = True
       time.sleep(0.5)
+      if Started_Games > 1 and Event_Mute == 1:
+        Showing_Want_To_Eat = "________"
       if Used_Radio == 1:
         print(f"I'd like to eat {Real_Want_To_Eat}")
         Used_Radio = 0
@@ -166,8 +168,6 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
         for i in range(1,4):
           print(f"{i}.{Showing_List[i-1]}")
           Used_Scissors = 0
-      if Started_Games > 1 and Event_Mute == 1:
-        Showing_Want_To_Eat = "________"
       try:
         Giving = input("Enter Number or 'item'(To use items): ").strip().lower()
         if Giving == "item":
@@ -211,6 +211,9 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
             print("Mr.tomato: You won,for now")
             Used_knife = 1
             break
+          elif Item_Using_Input == "knife" and Knife.amount == 0:
+            print("You dont have knife")
+            continue
 #Radio event
           if Item_Using_Input == "radio" and Radio.amount > 0 and Event_Mute == 1:
             print("Used 'radio'")
@@ -219,6 +222,10 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
             continue
           elif Item_Using_Input == "radio" and Radio.amount == 0:
             print("You dont have radio")
+            continue
+          else:
+            print("No Item Used")
+            time.sleep(0.5)
             continue
         else:  
           Int_Input = int(Giving)
@@ -237,16 +244,16 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
         Event_Mute = 0
         if Started_Games > 1:
           Event_Starting_Rate = random.randint(0,100)
+          Event_Mute_Starting_Rate = random.randint(0,100)
           if Event_Starting_Rate > 65:
             Event_Sack = 1
-        if Started_Games > 1:
-          Event_Mute_Starting_Rate = random.randint(0,100)
-          if Event_Mute_Starting_Rate > 75:
+          if Event_Mute_Starting_Rate > 65:
             Event_Mute = 1    
       else:
         time.sleep(1)
         print("Mr.tomato: I'd not asked This")
         Event_Sack = 0
+        Event_Mute = 0
         anger += 1
         BreakTime -= 1
         Money -= 75
@@ -397,7 +404,7 @@ while Used_knife != 1 and Anger_GameOver != True and Boss_Fighting_GameOver != T
       Showing = {Food_List[random.randint(0,20)],Food_List[random.randint(0,20)],Want_To_Eat}
       print("")
       #SHOPPING
-  while User_Input_Starting_Game == "1" or User_Input_Starting_Game == "shop":
+  while User_Input_Starting_Game == "2" or User_Input_Starting_Game == "shop":
     if Exit_Condition == False:
       print("--------SHOP--------")
       print(f"Scissors: {Scissors.price}, you have {Scissors.amount} scissor(s)")
