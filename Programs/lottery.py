@@ -37,9 +37,9 @@ while True:
     numList.add(Numbers)
   print(f"Today's Lottery Number is {list(numList)}!")
   Common=list(set(UCNList)&set(numList))
-  print(f"You have matched {len(Common)} number(s)!")
+  print(f"Matched {len(Common)} number(s)!")
   CollectedMoney=moneyDic.get(len(Common))
-  print(f"you have collected {CollectedMoney}$!")
+  print(f"Collected {CollectedMoney}$!")
   if len(Common)==6:
     print("HOW??")
   elif len(Common)==5:
